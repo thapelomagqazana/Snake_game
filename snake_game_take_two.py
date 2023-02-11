@@ -33,7 +33,7 @@ red = (255, 0, 0)
 
 # Initialize the direction and speed of the snake.
 direction = 'right'
-snake_speed = 20
+snake_speed = 5
 
 # # Define the size of the snake.
 # snake_width = 50
@@ -83,6 +83,19 @@ while running:
     elif keys[pygame.K_LEFT] and direction != 'right':
         direction = 'left'
 
+    # Move the snake to its current position
+    for i in range(len(snake_list)-1,0,-1):
+        snake_list[i].x = snake_list[i-1].x
+        snake_list[i].y = snake_list[i-1].y
+    
+    if direction == 'right':
+        snake_list[0].x += snake_speed
+    elif direction == 'left':
+        snake_list[0].x -= snake_speed
+    elif direction == 'up':
+        snake_list[0].y -= snake_speed
+    elif direction == 'down':
+        snake_list[0].y += snake_speed
 
 #     # Update the game state
 #     # Add the current position of the snake's head to the snake_body list
