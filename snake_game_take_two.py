@@ -97,35 +97,11 @@ while running:
     elif direction == 'down':
         snake_list[0].y += snake_speed
 
-#     # Update the game state
-#     # Add the current position of the snake's head to the snake_body list
-#     snake_body.append((snake_x, snake_y))
-
-#     # Check if the snake's head collides with the food
-#     if (snake_x < food_x + food_width and snake_x + snake_width > food_x 
-#     and snake_y < food_y + food_height and snake_y + snake_height > food_y):
-#         # Generate a new piece of food in a random location
-#         food_x = random.randint(0, window.get_width() - food_width)
-#         food_y = random.randint(0, window.get_height() - food_height)
-#     else:
-#         # Remove the tail of the snake if it hasn't eaten food.
-#         snake_body.pop(0)
-
-#     # Check if the game is over:
-#     # - Check if the sanke's head has collied with the wall.
-#     if snake_x < 0 or snake_x > window_x or snake_y < 0 or snake_x > window_y:
-#         # Display the game over screen
-#         font = pygame.font.Font(None, 36)
-#         game_over_text = font.render('Game Over!', True, red)
-#         window.blit(game_over_text, (350, 300))
-#         pygame.display.update()
-#         running = False
+    # Check for collisions with the wall
+    if (snake_list[0].x < 0 or snake_list[0].x > window_x - snake_size 
+    or snake_list[0].y < 0 or snake_list[0].y > window_y - snake_size):
+        running = False
     
-#     # - Check if the snake's head has collied with any body part
-#     for x,y in snake_body[:-1]:
-#         if x == snake_x and y == snake_y:
-#             running = False
-
     # Draw the snake
     for segment in snake_list:
         pygame.draw.rect(window, green, segment)
