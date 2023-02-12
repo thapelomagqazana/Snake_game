@@ -102,6 +102,11 @@ while running:
     or snake_list[0].y < 0 or snake_list[0].y > window_y - snake_size):
         running = False
     
+    # Check for collisions with the snake's own body
+    for i in range(1, len(snake_list)):
+        if snake_list[0].colliderect(snake_list):
+            running = False
+            
     # Draw the snake
     for segment in snake_list:
         pygame.draw.rect(window, green, segment)
