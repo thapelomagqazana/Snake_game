@@ -1,4 +1,5 @@
-import turtle 
+import turtle
+import random
 
 # Set the game screen
 screen = turtle.Screen()
@@ -10,12 +11,20 @@ screen.bgcolor('lightgreen')
 # Create a turtle as a snake head
 snake_head = turtle.Turtle()
 snake_head.shape('square')
+snake_head.penup()
 snake_head.goto(0,0)
 
+# Generate food items
+food = turtle.Turtle()
+food.speed(0)
+food.shape('circle')
+food.color('red')
+food.penup()
+x = random.randint(-290, 290)
+y = random.randint(-290, 290)
+food.goto(x,y)
+
 # Create snake body
-# snake_body = [turtle.Turtle()]
-# snake_body[0].shape("square")
-# snake_body[0].goto(snake_head.xcor(), snake_head.ycor()-20)
 snake_body = []
 
 current_direction = 'Up'
