@@ -9,7 +9,7 @@ screen.title('Snake Game')
 screen.setup(width=600, height=600)
 # Background colour of the screen
 screen.bgcolor('black')
-
+screen.tracer(0)
 
 # Create a turtle as a snake head
 snake_head = turtle.Turtle()
@@ -32,6 +32,9 @@ food.goto(x,y)
 
 # Create snake body
 snake_body = []
+
+# Add a score variable
+score = 0
 
 # Functions to change direction
 def move_up():
@@ -65,6 +68,17 @@ def move():
         x = snake_head.xcor()
         snake_head.setx(x+20)
 
+def display_score():
+    score_turtle = turtle.Turtle()
+    score_turtle.speed(0)
+    score_turtle.color('white')
+    score_turtle.penup()
+    score_turtle.hideturtle()
+    score_turtle.goto(0,260)
+    score_turtle.clear()
+    score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
+
+
 # Set the key bindings
 screen.listen()
 screen.onkeypress(move_up, 'Up')
@@ -86,7 +100,11 @@ while True:
         for segment in snake_body:
             segment.goto(1000,1000)
         
-        # Clear the body list
+        # Reset the score
+        score = 0
+        display_score()
+
+        # Clear the snake_body list
         snake_body.clear()
 
     # Check for collision with food:
@@ -100,6 +118,10 @@ while True:
         new_segment.color('lightgreen')
         new_segment.penup()
         snake_body.append(new_segment)
+
+        # Add points to the score
+        score += 10
+        display_score()
     
     # Move the end segments first in reverse order
     for index in range(len(snake_body)-1, 0, -1):
@@ -122,6 +144,10 @@ while True:
             snake_head.goto(0, 0)
             snake_head.direction = 'stop'
 
+            # Reset the score
+            score = 0
+            display_score()
+
             # Hide the segments
             for segment in snake_body:
                 segment.goto(1000, 1000)
@@ -131,89 +157,3 @@ while True:
     
     time.sleep(0.1)
 screen.mainloop()
-# currennt_direction = 'Up'
-
-# # Control the snake's directions
-# def move_up():
-#     global current_direction
-#     current_direction = 'Up'
-#     if current_direction != 'Down':
-#         snake_head.setheading(90)
-#         snake_head.forward(20)
-#         new_segment = turtle.Turtle()
-#         new_segment.shape('square')
-#         new_segment.penup()
-#         new_segment.goto(snake_head.xcor(), snake_head.ycor())
-#         snake_body.append(new_segment)
-#         if len(snake_body) > 1:
-#             last_segment = snake_body.pop()
-#             last_segment.clear()
-#             del last_segment
-
-# def move_left():
-#     global current_direction
-#     current_direction = 'Left'
-#     if current_direction != 'Right':
-#         snake_head.setheading(180)
-#         snake_head.forward(20)
-#         new_segment = turtle.Turtle()
-#         new_segment.shape('square')
-#         new_segment.penup()
-#         new_segment.goto(snake_head.xcor(), snake_head.ycor())
-#         snake_body.append(new_segment)
-#         if len(snake_body) > 1:
-#             last_segment = snake_body.pop()
-#             last_segment.clear()
-#             del last_segment
-
-# def move_down():
-#     global current_direction
-#     current_direction = 'Down'
-#     if current_direction != 'Up':
-#         snake_head.setheading(270)
-#         snake_head.forward(20)
-#         new_segment = turtle.Turtle()
-#         new_segment.shape('square')
-#         new_segment.penup()
-#         new_segment.goto(snake_head.xcor(), snake_head.ycor())
-#         snake_body.append(new_segment)
-#         if len(snake_body) > 1:
-#             last_segment = snake_body.pop()
-#             last_segment.clear()
-#             del last_segment
-
-
-# def move_right():
-#     global current_direction
-#     current_direction = 'Right'
-#     if current_direction != 'Left':
-#         snake_head.setheading(0)
-#         snake_head.forward(20)
-#         new_segment = turtle.Turtle()
-#         new_segment.shape('square')
-#         new_segment.penup()
-#         new_segment.goto(snake_head.xcor(), snake_head.ycor())
-#         snake_body.append(new_segment)
-#         if len(snake_body) > 1:
-#             last_segment = snake_body.pop()
-#             last_segment.clear()
-#             del last_segment
-
-
-# screen.onkeypress(move_up, 'Up')
-# screen.onkeypress(move_down, 'Down')
-# screen.onkeypress(move_left, 'Left')
-# screen.onkeypress(move_right, 'Right')
-# screen.listen()
-
-# turtle.exitonclick()
-# while True:
-#     if current_direction == 'Up':
-#         screen.ontimer(move_up, t=100)
-#     elif current_direction == 'Down':
-#         screen.ontimer(move_down, t=100)
-#     elif current_direction == 'Left':
-#         screen.ontimer(move_left, t=100)
-#     elif current_direction == 'Right':
-#         screen.ontimer(move_right, t=100)
-
