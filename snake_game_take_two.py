@@ -2,6 +2,8 @@ import turtle
 import random
 import time
 
+delay = 0.1
+
 # Set the game screen
 screen = turtle.Screen()
 # Give the screen a name
@@ -9,7 +11,7 @@ screen.title('Snake Game')
 screen.setup(width=600, height=600)
 # Background colour of the screen
 screen.bgcolor('black')
-screen.tracer(0)
+# screen.tracer(0)
 
 # Create a turtle as a snake head
 snake_head = turtle.Turtle()
@@ -33,8 +35,16 @@ food.goto(x,y)
 # Create snake body
 snake_body = []
 
-# Add a score variable
+# Set up the score display
 score = 0
+score_turtle = turtle.Turtle()
+score_turtle.speed(0)
+score_turtle.color('white')
+score_turtle.penup()
+score_turtle.hideturtle()
+score_turtle.goto(0,310)
+score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
+
 
 # Functions to change direction
 def move_up():
@@ -68,15 +78,14 @@ def move():
         x = snake_head.xcor()
         snake_head.setx(x+20)
 
-def display_score():
-    score_turtle = turtle.Turtle()
-    score_turtle.speed(0)
-    score_turtle.color('white')
-    score_turtle.penup()
-    score_turtle.hideturtle()
-    score_turtle.goto(0,260)
-    score_turtle.clear()
-    score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
+# def display_score():
+#     score_turtle = turtle.Turtle()
+#     score_turtle.speed(0)
+#     score_turtle.color('white')
+#     score_turtle.penup()
+#     score_turtle.hideturtle()
+#     score_turtle.goto(0,310)
+#     score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
 
 
 # Set the key bindings
@@ -102,7 +111,8 @@ while True:
         
         # Reset the score
         score = 0
-        display_score()
+        score_turtle.clear()
+        score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
 
         # Clear the snake_body list
         snake_body.clear()
@@ -121,7 +131,8 @@ while True:
 
         # Add points to the score
         score += 10
-        display_score()
+        score_turtle.clear()
+        score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
     
     # Move the end segments first in reverse order
     for index in range(len(snake_body)-1, 0, -1):
@@ -146,7 +157,8 @@ while True:
 
             # Reset the score
             score = 0
-            display_score()
+            score_turtle.clear()
+            score_turtle.write(f'Score: {score}', align='center', font=('Courier', 24, 'normal'))
 
             # Hide the segments
             for segment in snake_body:
@@ -155,5 +167,5 @@ while True:
             # Clear the snake_body list
             snake_body.clear()
     
-    time.sleep(0.1)
+    time.sleep(delay)
 screen.mainloop()
