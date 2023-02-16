@@ -168,4 +168,4 @@ while True:
             snake_body.clear()
     
     time.sleep(delay)
-screen.mainloop()
+# screen.mainloop()
